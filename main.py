@@ -54,7 +54,8 @@ def get_recent_company_10q(cik):
             break
 
     accession = accession_nums[index].replace("-", "")
-    return req.get(root_archive + f"Archives/edgar/data/{cik}/{accession}/{accession_nums[index]}.txt")
+    return req.get(root_archive + f"Archives/edgar/data/{cik}/{accession}/{accession_nums[index]}.txt", 
+    headers=headers).text
 
 
 # test code
@@ -64,4 +65,7 @@ with open("out.json", "w") as f:
     f.close()
 
 
-get_recent_company_10q("320193")
+q10 = get_recent_company_10q("320193")
+with open("10q.txt", "w") as f:
+    f.write(q10)
+    f.close()
